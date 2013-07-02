@@ -2,6 +2,7 @@
 
 namespace igorw\chicken;
 
+/** @api */
 function execute(array $opcodes, $input) {
     $vm = new Machine($opcodes, $input);
     return $vm->execute();
@@ -62,7 +63,7 @@ class Machine {
             case 6:
                 $head = $this->pop();
                 $sourcep = $this->next_opcode();
-                return $this->stack[$sourcep][$head];
+                return isset($this->stack[$sourcep][$head]) ? $this->stack[$sourcep][$head] : null;
             case 7:
                 $head = $this->pop();
                 $this->stack[$head] = $this->pop();
