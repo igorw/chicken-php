@@ -2,3 +2,11 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
+
+use igorw\chicken;
+
+$code = stream_get_contents(STDIN);
+$input = isset($argv[1]) ? $argv[1] : '';
+
+$opcodes = chicken\parse($code);
+echo chicken\execute($opcodes, $input)."\n";
