@@ -16,7 +16,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
             [[1, 1], implode("\n", ['chicken', 'chicken'])],
             [[1, 1, 1], implode("\n", ['chicken', 'chicken', 'chicken'])],
             [[1, 2, 3], implode("\n", ['chicken', 'chicken chicken', 'chicken chicken chicken'])],
-            [[2], "\n\nchicken chicken\n\n"],
+            [[2, 0], "chicken chicken\n"],
         ];
     }
 
