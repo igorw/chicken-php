@@ -1,4 +1,14 @@
 {
+    "name": "igorw/chicken",
+    "description": "Chicken VM written in PHP.",
+    "keywords": ["chicken", "chicken-vm"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Wiedler",
+            "email": "igor@wiedler.ch"
+        }
+    ],
     "require": {
         "lstrojny/functional-php": "~1.0@dev"
     },
