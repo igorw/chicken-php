@@ -51,7 +51,7 @@ class Machine {
                 return 'chicken';
             case 2:
                 $head = $this->pop();
-                return $this->pop() + $head;
+                return $this->plus($this->pop(), $head);
             case 3:
                 $head = $this->pop();
                 return $this->pop() - $head;
@@ -78,6 +78,14 @@ class Machine {
             default:
                 return $opcode - 10;
         }
+    }
+
+    private function plus($a, $b) {
+        if (is_string($a) || is_string($b)) {
+            return $a.$b;
+        }
+
+        return $a + $b;
     }
 
     private function push($value) {
