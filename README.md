@@ -67,5 +67,9 @@ Print `A`:
     exit
     EOF
 
+99 chickens:
+
+    $ cat examples/99chickens.cha | bin/chickenasm | bin/eggsemble | bin/chicken 9
+
 ChickenASM is a different dialect of chicken assmebly. This tool allows
 translating to eggsembly.

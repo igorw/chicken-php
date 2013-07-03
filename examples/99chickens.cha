@@ -1,0 +1,111 @@
+# 99 Chickens by torbjrn <http://torso.me/>
+# input: "9"
+
+push 8
+push 4
+multiply
+char
+push 3
+store
+push 3
+load
+exit
+chicken
+add
+push 23
+push 5
+multiply
+char
+add
+push 10
+char
+add
+push 2
+store
+push 1
+load
+exit
+push 1
+compare
+push 21
+jump
+push 1
+load
+exit
+push 0
+compare
+push 33
+jump
+push 1
+load
+exit
+push 2
+load
+exit
+add
+push 1
+load
+exit
+push 1
+subtract
+push 1
+store
+push 1
+load
+exit
+push 1
+subtract
+push 0
+push 23
+subtract
+jump
+push 1
+push 3
+load
+exit
+add
+chicken
+add
+push 10
+char
+add
+push 11
+load
+add
+push 10
+push 11
+multiply
+push 1
+add
+char
+add
+push 2
+load
+exit
+add
+push 1
+store
+push 2
+store
+push 2
+load
+exit
+push 4
+jump
+push 1
+load
+exit
+exit
+push 2
+load
+exit
+push 1
+load
+exit
+add
+push 1
+push 0
+push 25
+subtract
+jump
+exit
