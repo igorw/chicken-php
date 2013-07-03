@@ -8,11 +8,22 @@ function execute(array $opcodes, $input) {
     return $vm->execute();
 }
 
-class Machine {
-    const REGISTER_SELF = 0;
-    const REGISTER_INPUT = 1;
-    const REGISTER_START = 2;
+const REGISTER_SELF = 0;
+const REGISTER_INPUT = 1;
+const REGISTER_START = 2;
 
+const OP_EXIT = 0;
+const OP_CHICKEN = 1;
+const OP_ADD = 2;
+const OP_SUBTRACT = 3;
+const OP_MULTIPLY = 4;
+const OP_COMPARE = 5;
+const OP_LOAD = 6;
+const OP_STORE = 7;
+const OP_JUMP = 8;
+const OP_CHAR = 9;
+
+class Machine {
     public $stack;
     public $ip;
 
@@ -26,7 +37,7 @@ class Machine {
         }
         $this->push(0);
 
-        $this->ip = static::REGISTER_START;
+        $this->ip = REGISTER_START;
     }
 
     function execute() {
@@ -39,7 +50,7 @@ class Machine {
     }
 
     private function has_opcode() {
-        return !empty($this->stack[$this->ip]);
+        return isset($this->stack[$this->ip]) && OP_EXIT != $this->stack[$this->ip];
     }
 
     private function next_opcode() {
@@ -48,33 +59,33 @@ class Machine {
 
     private function process_opcode($opcode) {
         switch ($opcode) {
-            case 1:
+            case OP_CHICKEN:
                 return 'chicken';
-            case 2:
+            case OP_ADD:
                 $head = $this->pop();
                 return $this->plus($this->pop(), $head);
-            case 3:
+            case OP_SUBTRACT:
                 $head = $this->pop();
                 return $this->pop() - $head;
-            case 4:
+            case OP_MULTIPLY:
                 return $this->pop() * $this->pop();
-            case 5:
+            case OP_COMPARE:
                 return $this->pop() == $this->pop();
-            case 6:
+            case OP_LOAD:
                 $head = $this->pop();
                 $sourcep = $this->next_opcode();
                 return isset($this->stack[$sourcep][$head]) ? $this->stack[$sourcep][$head] : null;
-            case 7:
+            case OP_STORE:
                 $head = $this->pop();
                 $this->stack[$head] = $this->pop();
                 return $this->pop();
-            case 8:
+            case OP_JUMP:
                 $head = $this->pop();
                 if ($this->pop()) {
                     $this->ip += $head;
                 }
                 return $this->pop();
-            case 9:
+            case OP_CHAR:
                 return chr($this->pop());
             default:
                 return $opcode - 10;
