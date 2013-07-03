@@ -2,13 +2,13 @@
 
 namespace igorw\chicken;
 
-class ParserTest extends \PHPUnit_Framework_TestCase {
-    /** @dataProvider provideParse */
-    function testParse($expected, $code) {
-        $this->assertSame($expected, parse($code));
+class CompilerTest extends \PHPUnit_Framework_TestCase {
+    /** @dataProvider provideCompile */
+    function testCompile($expected, $code) {
+        $this->assertSame($expected, compile($code));
     }
 
-    function provideParse() {
+    function provideCompile() {
         return [
             [[1], 'chicken'],
             [[2], 'chicken chicken'],
@@ -23,14 +23,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @dataProvider provideParseWithInvalidCode
-     * @expectedException igorw\chicken\ParserException
+     * @dataProvider provideCompileWithInvalidCode
+     * @expectedException igorw\chicken\CompilerException
      */
-    function testParseWithInvalidCode($code) {
-        parse($code);
+    function testCompileWithInvalidCode($code) {
+        compile($code);
     }
 
-    function provideParseWithInvalidCode() {
+    function provideCompileWithInvalidCode() {
         return [
             ['chick'],
             ['chicken chick'],

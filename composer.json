@@ -16,6 +16,6 @@
         "phpunit/phpunit": "~3.7"
     },
     "autoload": {
-        "files": ["src/parser.php", "src/vm.php", "src/eggsembler.php"]
+        "files": ["src/compiler.php", "src/vm.php", "src/eggsembler.php"]
     }
 }

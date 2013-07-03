@@ -5,11 +5,11 @@ namespace igorw\chicken;
 use Functional as F;
 
 /** @api */
-class ParserException extends \RuntimeException {
+class CompilerException extends \RuntimeException {
 }
 
 /** @api */
-function parse($code) {
+function compile($code) {
     $lines = explode("\n", $code);
     return F\map($lines, __NAMESPACE__.'\\line_chicken_count');
 }
@@ -23,7 +23,7 @@ function line_chicken_count($line) {
         return 'chicken' !== $chicken;
     });
     if ($invalidChickens) {
-        throw new ParserException();
+        throw new CompilerException();
     }
     return count($chickens);
 }

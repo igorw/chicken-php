@@ -8,5 +8,5 @@ use igorw\chicken;
 $code = stream_get_contents(STDIN);
 $input = isset($argv[1]) ? $argv[1] : '';
 
-$opcodes = chicken\parse($code);
+$opcodes = chicken\compile($code);
 echo chicken\execute($opcodes, $input)."\n";
