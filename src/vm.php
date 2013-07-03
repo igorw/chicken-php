@@ -43,7 +43,7 @@ class Machine {
     function execute() {
         while ($this->has_opcode()) {
             $opcode = $this->next_opcode();
-            $this->push($this->process_opcode($opcode));
+            $this->process_opcode($opcode);
         }
 
         return $this->peek();
@@ -60,35 +60,45 @@ class Machine {
     private function process_opcode($opcode) {
         switch ($opcode) {
             case OP_CHICKEN:
-                return 'chicken';
+                $this->push('chicken');
+                break;
             case OP_ADD:
                 $head = $this->pop();
-                return $this->plus($this->pop(), $head);
+                $value = $this->plus($this->pop(), $head);
+                $this->push($value);
+                break;
             case OP_SUBTRACT:
                 $head = $this->pop();
-                return $this->pop() - $head;
+                $this->push($this->pop() - $head);
+                break;
             case OP_MULTIPLY:
-                return $this->pop() * $this->pop();
+                $this->push($this->pop() * $this->pop());
+                break;
             case OP_COMPARE:
-                return $this->pop() == $this->pop();
+                $this->push($this->pop() == $this->pop());
+                break;
             case OP_LOAD:
                 $head = $this->pop();
                 $sourcep = $this->next_opcode();
-                return isset($this->stack[$sourcep][$head]) ? $this->stack[$sourcep][$head] : null;
+                $value = isset($this->stack[$sourcep][$head]) ? $this->stack[$sourcep][$head] : null;
+                $this->push($value);
+                break;
             case OP_STORE:
                 $head = $this->pop();
                 $this->stack[$head] = $this->pop();
-                return $this->pop();
+                break;
             case OP_JUMP:
                 $head = $this->pop();
                 if ($this->pop()) {
                     $this->ip += $head;
                 }
-                return $this->pop();
+                break;
             case OP_CHAR:
-                return chr($this->pop());
+                $this->push(chr($this->pop()));
+                break;
             default:
-                return $opcode - 10;
+                $this->push($opcode - 10);
+                break;
         }
     }
 
