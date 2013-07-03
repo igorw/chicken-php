@@ -23,6 +23,10 @@ The reference implementation is written in JavaScript and is a piece of art.
 
 ## Usage
 
+### `chicken`
+
+Low-level chicken interpreter.
+
 Quine:
 
     $ echo chicken | bin/chicken
@@ -33,4 +37,18 @@ Cat:
     chicken chicken chicken chicken chicken chicken chicken chicken chicken chicken chicken
     chicken chicken chicken chicken chicken chicken
 
+    EOF
+
+### `eggsemble`
+
+Eggsembler. Compiles down to chicken.
+
+Print `A`:
+
+    $ (bin/eggsemble | bin/chicken) <<EOF
+    push 5
+    push 13
+    rooster
+    bbq
+    axe
     EOF
