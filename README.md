@@ -1,5 +1,7 @@
 # chicken-php
 
+![chicken](doc/chicken.png)
+
 PHP implementation of the [Chicken VM](http://torso.me/chicken), ported from
 JavaScript.
 
