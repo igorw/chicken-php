@@ -24,12 +24,12 @@ class Machine {
         foreach ($opcodes as $opcode) {
             $this->push($opcode);
         }
+        $this->push(0);
+
+        $this->ip = static::REGISTER_START;
     }
 
     function execute() {
-        $this->ip = static::REGISTER_START;
-        $this->push(0);
-
         while ($this->has_opcode()) {
             $opcode = $this->next_opcode();
             $this->push($this->process_opcode($opcode));
