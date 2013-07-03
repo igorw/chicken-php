@@ -52,3 +52,20 @@ Print `A`:
     bbq
     axe
     EOF
+
+### `chickenasm`
+
+Compiles [ChickenASM](https://github.com/powder96/ChickenASM) to eggsembly.
+
+Print `A`:
+
+    $ (bin/chickenasm | bin/eggsemble | bin/chicken) <<EOF
+    push 5
+    push 13
+    multiply
+    char
+    exit
+    EOF
+
+ChickenASM is a different dialect of chicken assmebly. This tool allows
+translating to eggsembly.
