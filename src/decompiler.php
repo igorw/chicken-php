@@ -6,11 +6,11 @@ use Functional as F;
 
 /** @api */
 function decompile(array $opcodes) {
-    $lines = F\map($opcodes, __NAMESPACE__.'\\compile_opcode');
+    $lines = F\map($opcodes, __NAMESPACE__.'\\decompile_opcode');
     return implode("\n", $lines);
 }
 
-function compile_opcode($opcode) {
+function decompile_opcode($opcode) {
     if (0 === $opcode) {
         return '';
     }
