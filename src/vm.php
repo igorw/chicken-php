@@ -76,9 +76,9 @@ class Machine {
                 $this->push($this->pop() == $this->pop());
                 break;
             case OP_LOAD:
-                $head = $this->pop();
                 $sourcep = $this->next_opcode();
                 $source = $this->stack[$sourcep];
+                $head = $this->pop();
                 $this->push(isset($source[$head]) ? $source[$head] : null);
                 break;
             case OP_STORE:
