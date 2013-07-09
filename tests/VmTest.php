@@ -10,6 +10,7 @@ class VmTest extends \PHPUnit_Framework_TestCase {
 
     function provideExecute() {
         return [
+            'blank' => [0, [0], '(unused)'],
             'quine' => ['chicken', [1], '(unused)'],
             'cat'   => [
                 'Chicken Power!',

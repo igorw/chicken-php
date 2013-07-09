@@ -24,20 +24,18 @@ const OP_JUMP = 8;
 const OP_CHAR = 9;
 
 class Machine {
-    public $stack;
-    public $ip;
+    public $stack = [];
+    public $sp = -1;
+    public $ip = REGISTER_START;
 
     function __construct($opcodes, $input) {
-        $this->stack = [];
-        $this->stack[] = &$this->stack;
+        $this->pushByRef($this->stack);
         $this->push($input);
 
         foreach ($opcodes as $opcode) {
             $this->push($opcode);
         }
         $this->push(0);
-
-        $this->ip = REGISTER_START;
     }
 
     function execute() {
@@ -111,14 +109,18 @@ class Machine {
     }
 
     private function push($value) {
-        return array_push($this->stack, $value);
+        $this->stack[++$this->sp] = $value;
+    }
+
+    private function pushByRef(&$value) {
+        $this->stack[++$this->sp] = &$value;
     }
 
     private function pop() {
-        return array_pop($this->stack);
+        return $this->stack[$this->sp--];
     }
 
     private function peek() {
-        return end($this->stack);
+        return $this->stack[$this->sp];
     }
 }
