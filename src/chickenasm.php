@@ -20,6 +20,11 @@ function translate_chickenasm_line($line) {
         return $line;
     }
 
+    if (preg_match('#^load (0|1)$#', $line, $match)) {
+        $sourcep = $match[1];
+        return implode("\n", ['pick', "push {$sourcep}"]);
+    }
+
     $mapping = [
         'exit'      => 'axe',
         'chicken'   => 'chicken',
@@ -27,7 +32,6 @@ function translate_chickenasm_line($line) {
         'subtract'  => 'fox',
         'multiply'  => 'rooster',
         'compare'   => 'compare',
-        'load'      => 'pick',
         'store'     => 'peck',
         'jump'      => 'fr',
         'char'      => 'bbq',
