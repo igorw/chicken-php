@@ -23,7 +23,9 @@ function line_chicken_count($line) {
         return 'chicken' !== $chicken;
     });
     if ($invalidChickens) {
-        throw new CompilerException();
+        throw new CompilerException(
+            sprintf('The following invalid chickens were found: %s',
+                json_encode($invalidChickens)));
     }
     return count($chickens);
 }

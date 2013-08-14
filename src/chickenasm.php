@@ -22,7 +22,10 @@ function translate_chickenasm_line($line) {
 
     if (preg_match('#^load (0|1)$#', $line, $match)) {
         $sourcep = $match[1];
-        return implode("\n", ['pick', "push {$sourcep}"]);
+        return implode("\n", [
+            'pick',
+            chickenasm_number_to_eggsembly($sourcep),
+        ]);
     }
 
     $mapping = [
@@ -42,4 +45,25 @@ function translate_chickenasm_line($line) {
     }
 
     throw new \InvalidArgumentException(sprintf("Did not recognize ChickenASM instruction '%s'", $line));
+}
+
+function chickenasm_number_to_eggsembly($n) {
+    $mapping = [
+        0 => 'axe',
+        1 => 'chicken',
+        2 => 'add',
+        3 => 'fox',
+        4 => 'rooster',
+        5 => 'compare',
+        6 => 'pick',
+        7 => 'peck',
+        8 => 'fr',
+        9 => 'bbq',
+    ];
+
+    if (isset($mapping[$n])) {
+        return $mapping[$n];
+    }
+
+    return 'push '.($n - 10);
 }
