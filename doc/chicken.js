@@ -77,7 +77,7 @@ function run_loop() {
     push(0);
 
     while (instruction = stack[$ip++]) {
-        push(process_instruction(instruction));
+        process_instruction(instruction);
     }
 
     return peek();
@@ -88,33 +88,41 @@ function process_instruction(instruction) {
 
     switch (instruction) {
         case 1:
-            return "chicken";
+            push("chicken");
+            break;
         case 2:
             head = pop();
-            return pop() + head;
+            push(pop() + head);
+            break;
         case 3:
             head = pop();
-            return pop() - head;
+            push(pop() - head);
+            break;
         case 4:
-            return pop() * pop();
+            push(pop() * pop());
+            break;
         case 5:
-            return pop() == pop();
+            push(pop() == pop());
+            break;
         case 6:
             head = pop();
-            return stack[stack[$ip++]][head];
+            push(stack[stack[$ip++]][head]);
+            break;
         case 7:
             head = pop();
             stack[head] = pop();
-            return pop();
+            break;
         case 8:
             head = pop();
             if (pop()) {
                 $ip += head;
             }
-            return pop();
+            break;
         case 9:
-            return '&#'+pop()+';';
+            push('&#'+pop()+';');
+            break;
         default:
-            return instruction - 10;
+            push(instruction - 10);
+            break;
     }
 }
