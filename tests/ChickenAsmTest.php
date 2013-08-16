@@ -14,7 +14,7 @@ class ChickenAsmTest extends \PHPUnit_Framework_TestCase {
                 ['push 5', 'push 13', 'rooster', 'bbq', 'axe'],
                 ['push 5', 'push 13', 'multiply', 'char', 'exit'],
             ],
-            [['pick', 'push 1'], ['load 1']],
+            [['pick', 'chicken'], ['load 1']],
         ];
     }
 }
