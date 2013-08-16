@@ -7,6 +7,7 @@ use igorw\chicken;
 
 $code = stream_get_contents(STDIN);
 $input = isset($argv[1]) ? $argv[1] : '';
+$logger = getenv('CHICKEN_LOG') ? new Monolog\Logger('chicken') : null;
 
 $opcodes = chicken\compile($code);
-echo chicken\execute($opcodes, $input)."\n";
+echo chicken\execute($opcodes, $input, $logger)."\n";

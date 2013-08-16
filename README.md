@@ -39,6 +39,10 @@ Cat:
 
     EOF
 
+To enable debug logging of instructions and stack, set the `CHICKEN_LOG` env var:
+
+    $ export CHICKEN_LOG=1
+
 ### `eggsemble`
 
 Eggsembler. Compiles down to chicken.

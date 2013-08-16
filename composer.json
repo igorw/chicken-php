@@ -10,10 +10,12 @@
         }
     ],
     "require": {
-        "lstrojny/functional-php": "~1.0@dev"
+        "lstrojny/functional-php": "~1.0@dev",
+        "psr/log": "~1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~3.7"
+        "phpunit/phpunit": "~3.7",
+        "monolog/monolog": "~1.6"
     },
     "autoload": {
         "files": ["src/chickenasm.php", "src/compiler.php", "src/decompiler.php", "src/eggsembler.php", "src/vm.php"]

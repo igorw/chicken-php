@@ -2,9 +2,12 @@
 
 namespace igorw\chicken;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+
 /** @api */
-function execute(array $opcodes, $input) {
-    $vm = new Machine($opcodes, $input);
+function execute(array $opcodes, $input, LoggerInterface $logger = null) {
+    $vm = new Machine($opcodes, $input, $logger);
     return $vm->execute();
 }
 
@@ -23,12 +26,41 @@ const OP_STORE = 7;
 const OP_JUMP = 8;
 const OP_CHAR = 9;
 
+function format_opcode($opcode) {
+    $mapping = [
+        OP_EXIT     => 'exit',
+        OP_CHICKEN  => 'chicken',
+        OP_ADD      => 'add',
+        OP_SUBTRACT => 'subtract',
+        OP_MULTIPLY => 'multiply',
+        OP_COMPARE  => 'compare',
+        OP_LOAD     => 'load',
+        OP_STORE    => 'store',
+        OP_JUMP     => 'jump',
+        OP_CHAR     => 'char',
+    ];
+
+    if (isset($mapping[$opcode]))
+        return $mapping[$opcode];
+
+    return sprintf('push %s', $opcode - 10);
+}
+
+function format_stack(array $stack, $stack_start, $stack_end) {
+    return array_slice($stack, $stack_start, $stack_end - $stack_start + 1);
+}
+
 class Machine {
+    public $logger;
+    public $stack_start = -1;
+
     public $stack = [];
     public $sp = -1;
     public $ip = REGISTER_START;
 
-    function __construct($opcodes, $input) {
+    function __construct($opcodes, $input, LoggerInterface $logger = null) {
+        $this->logger = $logger ?: new NullLogger();
+
         $this->pushByRef($this->stack);
         $this->push($input);
 
@@ -36,12 +68,17 @@ class Machine {
             $this->push($opcode);
         }
         $this->push(0);
+
+        $this->stack_start = count($this->stack);
     }
 
     function execute() {
         while ($this->has_opcode()) {
             $opcode = $this->next_opcode();
             $this->process_opcode($opcode);
+
+            $this->logger->debug(sprintf('exec %s', format_opcode($opcode)));
+            $this->logger->debug('stack', ['stack' => format_stack($this->stack, $this->stack_start, $this->sp)]);
         }
 
         return $this->peek();
