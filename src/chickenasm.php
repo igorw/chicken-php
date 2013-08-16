@@ -20,7 +20,7 @@ function translate_chickenasm_line($line) {
         return $line;
     }
 
-    if (preg_match('#^load (0|1)$#', $line, $match)) {
+    if (preg_match('#^load (\d+)$#', $line, $match)) {
         $sourcep = $match[1];
         return implode("\n", [
             'pick',
