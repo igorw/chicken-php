@@ -7,7 +7,7 @@ use Functional as F;
 /** @api */
 function chickenasm_to_eggsembler($code) {
     $lines = explode("\n", $code);
-    $lines = F\map($lines, __NAMESPACE__.'\\translate_chickenasm_line');
+    $lines = F\flatten(F\map($lines, __NAMESPACE__.'\\translate_chickenasm_line'));
     return implode("\n", $lines);
 }
 
@@ -22,10 +22,10 @@ function translate_chickenasm_line($line) {
 
     if (preg_match('#^load (\d+)$#', $line, $match)) {
         $sourcep = $match[1];
-        return implode("\n", [
+        return [
             'pick',
             chickenasm_number_to_eggsembly($sourcep),
-        ]);
+        ];
     }
 
     $mapping = [
