@@ -39,9 +39,9 @@ Cat:
 
     EOF
 
-To enable debug logging of instructions and stack, set the `CHICKEN_LOG` env var:
+To enable debug logging of instructions and stack, pass the `--debug` option:
 
-    $ export CHICKEN_LOG=1
+    $ echo chicken | bin/chicken --debug
 
 ### `eggsemble`
 
