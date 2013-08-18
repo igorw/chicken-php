@@ -1,0 +1,14 @@
+# arbitrary chicken injection
+# inject code and run it
+
+# prepare instructions on stack
+# 1 2 + EXIT
+push 11
+push 12
+push 2
+push 0
+
+# jump +1
+push 1
+push 1
+jump
