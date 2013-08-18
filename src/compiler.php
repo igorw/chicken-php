@@ -19,13 +19,13 @@ function line_chicken_count($line) {
         return 0;
     }
     $chickens = explode(' ', $line);
-    $invalidChickens = F\some($chickens, function ($chicken) {
+    $invalidChickens = F\filter($chickens, function ($chicken) {
         return 'chicken' !== $chicken;
     });
     if ($invalidChickens) {
         throw new CompilerException(
             sprintf('The following invalid chickens were found: %s',
-                json_encode($invalidChickens)));
+                json_encode(array_values($invalidChickens))));
     }
     return count($chickens);
 }
