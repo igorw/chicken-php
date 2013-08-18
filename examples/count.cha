@@ -1,0 +1,68 @@
+# count up to user input
+# register 2: running counter
+# register 3: output
+
+# push initial counter into register 2
+push 0
+push 2
+store
+
+# push initial string into register 3
+# ascii 32 is ' '
+push 0
+push 32
+char
+add
+push 3
+store
+
+# load register 2
+push 2
+load 0
+
+# load user input
+push 1
+load 0
+
+# compare
+compare
+
+# if done, jump to end
+push 24
+jump
+
+# load register 2
+push 2
+load 0
+
+# increment
+push 1
+add
+
+# write back to register 2
+push 2
+store
+
+# append to register 3
+push 3
+load 0
+push 2
+load 0
+add
+push 32
+char
+add
+push 3
+store
+
+# go back to loading+comparison
+# 1 is true cond for jump
+push 1
+push 0
+push 33
+subtract
+jump
+
+# load register 3
+push 3
+load 0

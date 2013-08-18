@@ -71,6 +71,10 @@ Print `A`:
     exit
     EOF
 
+Count:
+
+    $ cat examples/count.cha | bin/chickenasm | bin/eggsemble | bin/chicken 3
+
 99 chickens:
 
     $ cat examples/99chickens.cha | bin/chickenasm | bin/eggsemble | bin/chicken 9
