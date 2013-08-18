@@ -2,12 +2,30 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../vendor/docopt/docopt/src/docopt.php';
 
 use igorw\chicken;
 
+$doc = <<<DOC
+Chicken.
+
+Usage:
+  chicken [--debug] [<input>]
+  chicken (-h | --help)
+  chicken (-v | --version)
+
+Options:
+  -h --help     Show this screen.
+  -v --version  Show version.
+  -d --debug    Show debug logs.
+
+DOC;
+
+$args = Docopt\docopt($doc);
+
 $code = stream_get_contents(STDIN);
-$input = isset($argv[1]) ? $argv[1] : '';
-$logger = getenv('CHICKEN_LOG') ? new Monolog\Logger('chicken') : null;
+$input = $args['<input>'];
+$logger = isset($args['--debug']) ? new Monolog\Logger('chicken') : null;
 
 $opcodes = chicken\compile($code);
 echo chicken\execute($opcodes, $input, $logger)."\n";
