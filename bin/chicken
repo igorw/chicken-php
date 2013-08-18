@@ -12,11 +12,9 @@ Chicken.
 Usage:
   chicken [--debug] [<input>]
   chicken (-h | --help)
-  chicken (-v | --version)
 
 Options:
   -h --help     Show this screen.
-  -v --version  Show version.
   -d --debug    Show debug logs.
 
 DOC;
@@ -25,7 +23,7 @@ $args = Docopt\docopt($doc);
 
 $code = stream_get_contents(STDIN);
 $input = $args['<input>'];
-$logger = isset($args['--debug']) ? new Monolog\Logger('chicken') : null;
+$logger = $args['--debug'] ? new Monolog\Logger('chicken') : null;
 
 $opcodes = chicken\compile($code);
 echo chicken\execute($opcodes, $input, $logger)."\n";
