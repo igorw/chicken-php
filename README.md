@@ -81,3 +81,8 @@ Count:
 
 ChickenASM is a different dialect of chicken assembly. This tool allows
 translating to eggsembly.
+
+## References
+
+* [Chicken.js](http://torso.me/chicken)
+* [Chicken on Esolang](http://esolangs.org/wiki/Chicken)
