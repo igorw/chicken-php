@@ -10,7 +10,7 @@ $doc = <<<DOC
 Chicken.
 
 Usage:
-  chicken [--debug] [<input>]
+  chicken [--debug] [--] [<input>]
   chicken (-h | --help)
 
 Options:
