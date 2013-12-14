@@ -2,13 +2,25 @@
 
 namespace igorw\chicken;
 
-use Functional as F;
+use iter;
 
 /** @api */
 function chickenasm_to_eggsembler($code) {
     $lines = explode("\n", $code);
-    $lines = F\flatten(F\map($lines, __NAMESPACE__.'\\translate_chickenasm_line'));
-    return implode("\n", $lines);
+    $lines = flatten(iter\map(__NAMESPACE__.'\\translate_chickenasm_line', $lines));
+    return implode("\n", iter\toArray($lines));
+}
+
+function flatten($iterable) {
+    foreach ($iterable as $value) {
+        if (is_array($value) || $value instanceof \Iterator) {
+            foreach ($value as $v) {
+                yield $v;
+            }
+        } else {
+            yield $value;
+        }
+    }
 }
 
 function translate_chickenasm_line($line) {

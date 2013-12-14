@@ -2,15 +2,26 @@
 
 namespace igorw\chicken;
 
-use Functional as F;
+use iter;
 
 /** @api */
 function eggsemble($code) {
     $lines = explode("\n", $code);
-    $lines = F\reject($lines, __NAMESPACE__.'\\eggsemble_is_blank');
-    $lines = F\reject($lines, __NAMESPACE__.'\\eggsemble_is_comment');
-    $lines = F\map($lines, __NAMESPACE__.'\\eggsemble_line');
-    return array_values($lines);
+    $lines = reject(__NAMESPACE__.'\\eggsemble_is_blank', $lines);
+    $lines = reject(__NAMESPACE__.'\\eggsemble_is_comment', $lines);
+    $lines = iter\map(__NAMESPACE__.'\\eggsemble_line', $lines);
+    $lines = iter\values($lines);
+    return iter\toArray($lines);
+}
+
+function complement(callable $pred) {
+    return function () use ($pred) {
+        return !call_user_func_array($pred, func_get_args());
+    };
+}
+
+function reject(callable $pred, $iterable) {
+    return iter\filter(complement($pred), $iterable);
 }
 
 function eggsemble_is_blank($line) {

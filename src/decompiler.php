@@ -2,12 +2,12 @@
 
 namespace igorw\chicken;
 
-use Functional as F;
+use iter;
 
 /** @api */
 function decompile(array $opcodes) {
-    $lines = F\map($opcodes, __NAMESPACE__.'\\decompile_opcode');
-    return implode("\n", $lines);
+    $lines = iter\map(__NAMESPACE__.'\\decompile_opcode', $opcodes);
+    return implode("\n", iter\toArray($lines));
 }
 
 function decompile_opcode($opcode) {

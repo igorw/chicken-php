@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "lstrojny/functional-php": "~1.0@dev",
+        "nikic/iter": "dev-master",
         "psr/log": "~1.0"
     },
     "require-dev": {
